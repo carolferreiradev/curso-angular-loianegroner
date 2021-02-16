@@ -50,4 +50,26 @@
 
 
   </article>
+
+  <article>
+    <h3>Event Binding</h3>
+    <div>
+      <button class="btn btn-primary" (click)="botaoClicado()">Clique aqui</button>
+      <br><br>
+      <input type="text"
+        (keyup)="onKeyUp($event)"
+        (keyup.enter)="salvarValor($event.target.value)"
+        (blur)="salvarValor(campoInput.value)"
+      #campoInput
+        >
+      <p>(keyup) Valor atual: {{ valorAtual }}</p>
+      <p>(keyup.enter)(blur) Valor Salvo: {{ valorSalvo }}</p>
+      <br><br>
+      <span
+      (mouseover)="onMouseOverOut()"
+      (mouseout)="onMouseOverOut()"
+      [class.highlight]="isMouseOver"
+      >Passe o mouse sobre mim</span>
+    </div>
+  </article>
 </section>

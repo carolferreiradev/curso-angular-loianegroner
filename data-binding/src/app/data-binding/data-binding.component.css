@@ -1,0 +1,11 @@
+section{
+  margin: 1rem;
+}
+
+.highlight{
+  padding: 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+  background-color: violet;
+  transition: 400ms all;
+}
