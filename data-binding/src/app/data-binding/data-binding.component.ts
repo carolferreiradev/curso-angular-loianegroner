@@ -8,14 +8,14 @@ import { Component, OnInit } from '@angular/core';
 export class DataBindingComponent implements OnInit {
 
   url = 'http://angular.io/';
-
-  getValor(){
+  urlImagem = 'https://picsum.photos/400/200'
+  getValor() {
     return 1
   }
 
-  cursoAngular=true
+  cursoAngular = true
 
-  getCurtirCurso(){
+  getCurtirCurso() {
     return true
   }
 

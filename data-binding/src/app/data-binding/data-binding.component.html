@@ -6,4 +6,12 @@
     <p>Resultado de 1 + 1 não é: {{ 1 + 1 + getValor() }}</p>
     <p>Curso Angular e gosto do curso: {{  cursoAngular && getCurtirCurso() }}</p>
   </article>
+
+  <article>
+    <h3>Property Binding</h3>
+      <span>Usando Interpolação</span>
+      <img src="{{ urlImagem }}" alt="imagem natureza">
+      <span>Usando o Propert Binding</span>
+      <img [src]="urlImagem" alt="imagem natureza">
+  </article>
 </section>
