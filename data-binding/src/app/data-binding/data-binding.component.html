@@ -70,8 +70,7 @@
   <article>
     <h3>Two-way data binding</h3>
     <div>
-      <input type="text"
-      [(ngModel)]="nome">
+      <input type="text" [(ngModel)]="nome">
 
       <p>Você digitou {{ nome }}</p>
     </div>
@@ -84,5 +83,17 @@
 
       <p>Meu nome é {{ pessoa.nome }}, tenho {{ pessoa.idade }} e moro na rua {{ pessoa.endereco }}</p>
     </div>
+  </article>
+</section>
+
+
+<section class="input-output-properties">
+  <article>
+    <h3>Input/Output Properties</h3>
+    <p>Input - Pai para o Filho</p>
+    <app-curso-propertie [nome]="nomeDoCurso"></app-curso-propertie>
+    <br><br>
+    <p>Output - Filho para o Pai</p>
+    <app-output-propertie [valor]="valorInicial" (mudouValor)="onMudouValor($event)"></app-output-propertie>
   </article>
 </section>
