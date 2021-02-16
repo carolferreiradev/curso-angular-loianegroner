@@ -4,18 +4,50 @@
     <p>String renderizada com interpolação: {{ url }}</p>
     <p>Resultado de 1 + 1 é: {{ 1 + 1 }}</p>
     <p>Resultado de 1 + 1 não é: {{ 1 + 1 + getValor() }}</p>
-    <p>Curso Angular e gosto do curso: {{  cursoAngular && getCurtirCurso() }}</p>
+    <p>Curso Angular e gosto do curso: {{ cursoAngular && getCurtirCurso() }}</p>
   </article>
 
   <article>
     <h3>Property Binding</h3>
-      <span>Usando Interpolação</span>
-      <img src="{{ urlImagem }}" alt="imagem natureza">
-      <span>Usando o Propert Binding</span>
-      <img [src]="urlImagem" alt="imagem natureza">
+    <span>Usando Interpolação</span>
+    <img src="{{ urlImagem }}" alt="imagem natureza">
+    <span>Usando o Propert Binding</span>
+    <img [src]="urlImagem" alt="imagem natureza">
   </article>
 
   <article>
-    <h3>CLass e Style Binding</h3>
+    <h3>Class e Style Binding</h3>
+    <h4>Usando Classe</h4>
+    <div>
+      Selecione uma classe:
+      <select #classe (change)="0">
+        <option value="alert-success">SUCESSO</option>
+        <option value="alert-info">INFO</option>
+        <option value="alert-warning">ALERTA</option>
+        <option value="alert-danger">ERRO</option>
+      </select>
+      <br><br>
+
+      <div class="alert" role="alert" [class.alert-success]="classe.value == 'alert-success'">SUCESSO</div>
+
+      <div class="alert" role="alert" [class.alert-info]="classe.value == 'alert-info'">INFO</div>
+
+      <div class="alert" role="alert" [class.alert-warning]="classe.value == 'alert-warning'">ALERTA</div>
+
+      <div class="alert" role="alert" [class.alert-danger]="classe.value =='alert-danger'">ERRO</div>
+
+      <div class="alert {{ classe.value }}" role="alert">
+        <p>Texto colorido conforme valor do combobox</p>
+      </div>
+
+    </div>
+    <h4>Usando Style</h4>
+
+    <div class="alert alert-danger" role="alert"
+    [style.display]="classe.value == 'alert-danger' ? 'block' : 'none'">
+      <p>Esse texto somente aparece em caso de erro</p>
+    </div>
+
+
   </article>
 </section>
