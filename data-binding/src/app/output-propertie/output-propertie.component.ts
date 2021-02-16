@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-output-propertie',
@@ -11,17 +11,21 @@ export class OutputPropertieComponent implements OnInit {
 
   @Output() mudouValor = new EventEmitter()
 
+  @ViewChild('campoInput', {
+    static: true
+  }) valorDoInput: ElementRef;
+
   constructor() { }
 
   ngOnInit() {
   }
 
   incrementa() {
-    this.valor++
+    this.valorDoInput.nativeElement.value++
     this.mudouValor.emit({ novoValor: this.valor })
   }
   decrementa() {
-    this.valor--
+    this.valorDoInput.nativeElement.value--
     this.mudouValor.emit({ novoValor: this.valor })
   }
 
