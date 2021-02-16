@@ -42,9 +42,8 @@
 
     </div>
     <h4>Usando Style</h4>
-
-    <div class="alert alert-danger" role="alert"
-    [style.display]="classe.value == 'alert-danger' ? 'block' : 'none'">
+    <p>Selecione a opção ERRO no select</p>
+    <div class="alert alert-danger" role="alert" [style.display]="classe.value == 'alert-danger' ? 'block' : 'none'">
       <p>Esse texto somente aparece em caso de erro</p>
     </div>
 
@@ -56,20 +55,34 @@
     <div>
       <button class="btn btn-primary" (click)="botaoClicado()">Clique aqui</button>
       <br><br>
-      <input type="text"
-        (keyup)="onKeyUp($event)"
-        (keyup.enter)="salvarValor($event.target.value)"
-        (blur)="salvarValor(campoInput.value)"
-      #campoInput
-        >
+      <input type="text" (keyup)="onKeyUp($event)" (keyup.enter)="salvarValor($event.target.value)"
+        (blur)="salvarValor(campoInput.value)" #campoInput>
       <p>(keyup) Valor atual: {{ valorAtual }}</p>
       <p>(keyup.enter)(blur) Valor Salvo: {{ valorSalvo }}</p>
       <br><br>
-      <span
-      (mouseover)="onMouseOverOut()"
-      (mouseout)="onMouseOverOut()"
-      [class.highlight]="isMouseOver"
-      >Passe o mouse sobre mim</span>
+      <span (mouseover)="onMouseOverOut()" (mouseout)="onMouseOverOut()" [class.highlight]="isMouseOver">Passe o mouse
+        sobre mim</span>
+    </div>
+  </article>
+</section>
+
+<section class="two-way-binding">
+  <article>
+    <h3>Two-way data binding</h3>
+    <div>
+      <input type="text"
+      [(ngModel)]="nome">
+
+      <p>Você digitou {{ nome }}</p>
+    </div>
+
+    <div>
+      <h2>Utilizando o TW Data Binding com OBJETOS</h2>
+      <input type="text" [(ngModel)]="pessoa.nome">
+      <input type="text" [(ngModel)]="pessoa.idade">
+      <input type="text" [(ngModel)]="pessoa.endereco">
+
+      <p>Meu nome é {{ pessoa.nome }}, tenho {{ pessoa.idade }} e moro na rua {{ pessoa.endereco }}</p>
     </div>
   </article>
 </section>

@@ -12,6 +12,13 @@ export class DataBindingComponent implements OnInit {
   valorAtual = ''
   valorSalvo: string
   isMouseOver = false
+  nome= 'Maria'
+
+  pessoa={
+    nome: 'Ana Carolina',
+    idade: 25,
+    endereco: 'Endereço Teste'
+  }
   getValor() {
     return 1
   }

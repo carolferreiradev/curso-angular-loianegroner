@@ -9,3 +9,7 @@ section{
   background-color: violet;
   transition: 400ms all;
 }
+
+input{
+  margin-right: 18px;
+}
