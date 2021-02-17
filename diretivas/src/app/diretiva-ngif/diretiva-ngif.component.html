@@ -1,0 +1,37 @@
+<h3>Diretiva *ngIf</h3>
+<div *ngIf="cursos.length > 0">
+  Lista de cursos
+  <li>{{cursos}}</li>
+</div>
+
+<div *ngIf="cursos.length == 0">
+  Não existem cursos para serem listados
+</div>
+
+<br><br>
+
+<div *ngIf="mostrarCursos" style="background-color: #008000;">
+  Existem cursos para serem listados
+</div>
+
+<div *ngIf="!mostrarCursos" style="background-color: #ad1616;">
+  Não existem cursos para serem listados
+</div>
+
+<br><br>
+
+<button (click)="onShowCourses()">Mostrar ou esconder cursos</button>
+
+
+<!-- USANDO O HIDDEN -->
+
+<div [hidden]="mostrarCursos" style="background-color: #0d0080;">
+<p>show</p>
+</div>
+
+<div [hidden]="!mostrarCursos" style="background-color: #a5004d;">
+  <p>show</p>
+</div>
+
+<!-- [hidden] => Recomendado para árvore de elementos pequenas -->
+<!--  *ngIf   => recomendado para árvore de elementos grandes / questões de segurança-->
