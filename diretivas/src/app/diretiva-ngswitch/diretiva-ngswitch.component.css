@@ -1,0 +1,11 @@
+.active{
+  font-weight: bold;
+}
+
+a{
+  color: black;
+  cursor: pointer;
+}
+.navbar{
+  background-color: rgb(235, 235, 235);
+}

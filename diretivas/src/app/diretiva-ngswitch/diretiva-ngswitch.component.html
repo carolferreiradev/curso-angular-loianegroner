@@ -1,1 +1,20 @@
-<p>diretiva-ngswitch works!</p>
+<div class="container">
+  <h3>Diretiva ngSwitch</h3>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" [class.active]="aba == 'home'" (click)="aba = 'home'">Home</a>
+      <a class="navbar-brand" [class.active]="aba == 'implement'" (click)="aba = 'implement'">Implementações</a>
+      <a class="navbar-brand" [class.active]="aba == 'price'" (click)="aba = 'price'">Preço</a>
+    </div>
+  </div>
+</nav>
+<!-- usaremos o property binding para 'escutar' o valor atual da aba e assim apresentar os valores -->
+<div [ngSwitch]="aba">
+  <p *ngSwitchCase="'home'">Página Home</p>
+  <p *ngSwitchCase="'implement'">Pagina de Implementações</p>
+  <p *ngSwitchCase="'price'">Página de Preços</p>
+</div>
+
+</div>
