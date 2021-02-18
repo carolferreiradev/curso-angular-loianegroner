@@ -12,7 +12,7 @@
 </nav>
 <!-- usaremos o property binding para 'escutar' o valor atual da aba e assim apresentar os valores -->
 <div [ngSwitch]="aba">
-  <p *ngSwitchCase="'home'">Página Home</p>
+  <p *ngSwitchDefault>Página Home</p>
   <p *ngSwitchCase="'implement'">Pagina de Implementações</p>
   <p *ngSwitchCase="'price'">Página de Preços</p>
 </div>
