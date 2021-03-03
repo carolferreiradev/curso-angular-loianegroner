@@ -1,0 +1,10 @@
+<p>DESCRIÇÃO: {{ tarefa.desc }}</p>
+<!-- <p>{{ tarefa.responsavel.nome }}</p> -->
+<!-- Ira ocasionar um erro de:
+  ERROR TypeError: Cannot read property 'nome' of null -->
+
+<!-- Usando operador ternário -->
+<p>RESPONSÁVEL: {{ tarefa.responsavel != null ? tarefa.responsavel.nome : '' }}</p>
+
+<!-- Sendo assim viavel apresentar usando o operador Evils -->
+<p>RESPONSÁVEL: {{ tarefa.responsavel?.nome }}</p>

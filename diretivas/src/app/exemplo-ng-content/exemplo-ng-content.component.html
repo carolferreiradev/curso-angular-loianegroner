@@ -1,0 +1,13 @@
+<!-- Passar conteudo para os componentes -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      <!-- usamos o 'select=".nomeDoSeletor para que o angular possa diferenciar os ng content' -->
+      <ng-content select=".titulo"></ng-content>
+    </h3>
+  </div>
+  <div class="panel-body">
+    <!-- Incluimos a tag -->
+    <ng-content select=".conteudo"></ng-content>
+  </div>
+</div>
