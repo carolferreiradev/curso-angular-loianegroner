@@ -1,0 +1,16 @@
+<!-- Sem ngClass -->
+<p>Sem ngClass</p>
+<h1>
+  <span class="glyphicon" [class.glyphicon-star-empty]="!meuFavorito" [class.glyphicon-star]="meuFavorito"
+    (click)="this.changeIcon()"></span>
+</h1>
+
+
+<!-- Utilizando ngClass -->
+<p>Utilizando ngClass</p>
+<h1>
+  <span class="glyphicon" [ngClass]="{
+      'glyphicon-star-empty': !meuFavorito,
+      'glyphicon-star': meuFavorito}"
+      (click)="this.changeIcon()"></span>
+</h1>
