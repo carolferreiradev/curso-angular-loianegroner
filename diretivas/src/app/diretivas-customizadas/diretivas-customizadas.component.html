@@ -5,3 +5,17 @@
 <p appHighlightComMouse>HIGHLIGHT ao passar o mouse</p>
 
 <p appHighlightCompleta [bgDefault]="'purple'" [bgHighlight]="'pink'"> HIGLIGHT COMPLETA - customizadas</p>
+
+
+<div *ngIf="mostrarCursos" style="background-color: #008000; color: white;">
+  Existem cursos para serem listados
+</div>
+
+<div *ngElse="mostrarCursos" style="background-color: #ad1616; color: white;">
+  Não existem cursos para serem listados
+</div>
+
+<br><br>
+
+<button (click)="onShowCourses()">Mostrar ou esconder cursos</button>
+

@@ -17,6 +17,7 @@ export class HighlightCompletaDirective {
 
   @Input() bgDefault: string = 'white'
   @Input() bgHighlight: string = 'white'
+
   constructor() { }
   ngOnInit(): void {
     this.bgDefault
