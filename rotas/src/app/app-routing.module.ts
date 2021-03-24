@@ -1,3 +1,4 @@
+import { CursoNaoEncontradoComponent } from './curso-nao-encontrado/curso-nao-encontrado.component';
 import { CursosDetalhesComponent } from './cursos-detalhes/cursos-detalhes.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -21,6 +22,10 @@ const routes: Routes = [{
 {
   path: 'curso/:id',
   component: CursosDetalhesComponent
+},
+{
+  path:'nao-encontrado',
+  component:CursoNaoEncontradoComponent
 }
 ];
 
