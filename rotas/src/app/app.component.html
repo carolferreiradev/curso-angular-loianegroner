@@ -2,7 +2,7 @@
   <div class="nav-wrapper">
     <a routerLink="" class="brand-logo right">Rotas</a>
     <ul id="nav-mobile" class="left hide-on-med-and-down">
-      <li routerLinkActive="active"><a routerLink="/cursos">Cursos</a></li>
+      <li routerLinkActive="active"><a [queryParams]="{pagina:1}" routerLink="/cursos">Cursos</a></li>
       <li routerLinkActive="active"><a [routerLink]="['curso', idCurso.value]">Cursos com ID</a></li>
       <li routerLinkActive="active"><a routerLink="/login">Login</a></li>
     </ul>
@@ -10,6 +10,6 @@
 </nav>
 <div class="container">
   <p>Entre com o ID do curso</p>
-    <input #idCurso>
+  <input #idCurso>
   <router-outlet></router-outlet>
 </div>
