@@ -1,11 +1,17 @@
 <nav>
   <div class="nav-wrapper">
-    <a routerLink="" class="brand-logo right">Logo</a>
+    <a routerLink="" class="brand-logo right">Rotas</a>
     <ul id="nav-mobile" class="left hide-on-med-and-down">
-      <li><a routerLink="">Home</a></li>
-      <li><a routerLink="/cursos">Cursos</a></li>
-      <li><a routerLink="/login">Login</a></li>
+      <li routerLinkActive="active"><a routerLink="/cursos">Cursos</a></li>
+      <li routerLinkActive="active"><a [routerLink]="['curso', idCurso.value]">Cursos com ID</a></li>
+      <li routerLinkActive="active"><a routerLink="/login">Login</a></li>
     </ul>
   </div>
 </nav>
-<router-outlet></router-outlet>
+<div class="container">
+  <div class="input-field">
+    <input placeholder="Placeholder" id="first_name" type="text" class="validate" #idCurso>
+    <label for="first_name">Entre com o ID do curso</label>
+  </div>
+  <router-outlet></router-outlet>
+</div>
