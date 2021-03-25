@@ -1,0 +1,22 @@
+<h5>Detalhes do aluno</h5>
+<table>
+  <thead>
+    <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Ação</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>{{aluno.id}}</td>
+      <td>{{aluno.nome}}</td>
+      <td>{{aluno.email}}</td>
+      <td><a (click)="editarCadastro()" class="edit waves-effect waves-light btn"><span class="material-icons">
+        mode_edit
+        </span></a></td>
+    </tr>
+  </tbody>
+</table>
