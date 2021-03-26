@@ -7,11 +7,11 @@ import { CursosComponent } from './cursos.component';
 
 const cursosRoutes: Routes = [
   {
-    path: 'cursos',
+    path: '',
     component: CursosComponent
   },
   {
-    path: 'curso/:id',
+    path: ':id',
     component: CursosDetalhesComponent
   },
   {
