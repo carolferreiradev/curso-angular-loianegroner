@@ -1,6 +1,8 @@
+import { Aluno } from './../aluno';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+
 import { AlunosService } from '../alunos.service';
 
 @Component({
@@ -11,7 +13,7 @@ import { AlunosService } from '../alunos.service';
 export class AlunoDetalheComponent implements OnInit {
 
   public incricao: Subscription;
-  public aluno: any;
+  public aluno: Aluno;
   public id: number;
 
   constructor(
@@ -25,11 +27,17 @@ export class AlunoDetalheComponent implements OnInit {
   }
 
   getAlunoById() {
-    this.incricao = this.routeActive.params.subscribe((param) => {
-      this.id = param['id']
-    })
-    const getAluno = this.alunoService.getAlunoById(this.id);
-    this.aluno = getAluno[0];
+    // this.incricao = this.routeActive.params.subscribe((param) => {
+    //   this.id = param['id']
+    // })
+    // const getAluno = this.alunoService.getAlunoById(this.id);
+    // this.aluno = getAluno[0];
+
+    this.incricao = this.routeActive.data.subscribe(
+      (info) => {
+        this.aluno = info.aluno[0]
+      }
+    )
   }
 
   editarCadastro() {
