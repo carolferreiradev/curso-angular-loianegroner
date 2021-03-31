@@ -1,11 +1,20 @@
-<form #formulario ="ngForm" (ngSubmit)="onSubmit(formulario)" >
+<form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)">
   <div class="form-group">
     <label for="nome">Nome</label>
-    <input type="text" class="form-control" id="nome"placeholder="Insira o nome" name="nome" ngModel>
+    <input required type="text" class="form-control" id="nome" placeholder="Insira o nome" name="nome"
+      [(ngModel)]="usuario.nome" #nome>
+      <!-- <div>
+        PARA VER AS CLASSES QUE ESTAO SENDO APLICADAS NO INPUT
+        {{nome.className}}
+      </div> -->
   </div>
   <div class="form-group">
     <label for="email">Email</label>
-    <input type="email" class="form-control" id="email"placeholder="Insira o email" name="email" ngModel>
+    <input required type="email" class="form-control" id="email" placeholder="Insira o email" name="email"
+      [(ngModel)]="usuario.email"
+      required email
+      >
+      <!-- pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}>~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" -->
   </div>
   <button type="submit" class="btn btn-primary">Acessar</button>
 </form>
