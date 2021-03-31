@@ -1,20 +1,37 @@
-<form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)">
-  <div class="form-group">
-    <label for="nome">Nome</label>
-    <input required type="text" class="form-control" id="nome" placeholder="Insira o nome" name="nome"
-      [(ngModel)]="usuario.nome" #nome>
+<form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)" class="form-horizontal">
+  <div class="form-group" [class.has-error]="!nome.valid && nome.touched"
+    [class.has-feedback]="!nome.valid && nome.touched">
+
+    <div class="col-sm-12">
+      <label for="nome">Nome</label>
+    </div>
+
+    <div class="col-sm-12">
+
+      <input required type="text" class="form-control" id="nome" placeholder="Insira o nome" name="nome"
+        [(ngModel)]="usuario.nome" #nome="ngModel">
       <!-- <div>
         PARA VER AS CLASSES QUE ESTAO SENDO APLICADAS NO INPUT
         {{nome.className}}
       </div> -->
+      <div *ngIf="!nome.valid && nome.touched" class="alert alert-danger" role="alert">
+        Nome é obrigatorio
+      </div>
+    </div>
   </div>
-  <div class="form-group">
+  <div class="form-group" [class.has-error]="!email.valid && email.touched"
+    [class.has-feedback]="!email.valid && email.touched">
+
     <label for="email">Email</label>
     <input required type="email" class="form-control" id="email" placeholder="Insira o email" name="email"
-      [(ngModel)]="usuario.email"
-      required email
-      >
-      <!-- pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}>~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" -->
+      [(ngModel)]="usuario.email" required email #email="ngModel">
+    <!-- pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}>~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?" -->
+
+    <div *ngIf="!email.valid && email.touched" class="alert alert-danger" role="alert">
+      email é inválido
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary">Acessar</button>
+  <button type="submit" class="btn btn-primary" [disabled]="!formulario.valid">Acessar</button>
+
+  <app-form-debug [form]="formulario"></app-form-debug>
 </form>
