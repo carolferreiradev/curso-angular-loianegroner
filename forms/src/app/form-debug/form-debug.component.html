@@ -3,15 +3,22 @@
   <div>
     Detalhes do Form
   </div>
-  <pre>
-    Form Válido : {{ form.valid }}
-  </pre>
 
-  <pre>
-    Form Submetido : {{ form.submitted }}
-  </pre>
+  <div class="form-group col-md-12">
+    <pre>
+      Form Válido : {{ form.valid }}
+    </pre>
+  </div>
 
-  <pre>
-    Valores : <br> {{ form.value | json}}
-  </pre>
+  <div class="form-group col-md-12">
+    <pre>
+      Form Submetido : {{ form.submitted }}
+    </pre>
+  </div>
+
+  <div class="form-group col-md-12">
+    <pre>
+      Valores : <br> {{ form.value | json}}
+    </pre>
+  </div>
 </div>
