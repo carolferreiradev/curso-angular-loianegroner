@@ -37,8 +37,11 @@ export class TemplateFormComponent implements OnInit {
   }
 
   onSubmit(formulario: NgForm) {
-    console.log(formulario)
-    console.log(this.usuario)
+
+    const dados = JSON.stringify(formulario.value)
+
+    this.http.post('https://httpbin.org/post', dados)
+      .subscribe((dado) => console.log(dado));
   }
 
   async consultaCEP(cep: string, formulario) {
@@ -93,7 +96,7 @@ export class TemplateFormComponent implements OnInit {
 
   }
 
-  resetaDadosEndereco(formulario){
+  resetaDadosEndereco(formulario) {
     formulario.form.patchValue({
       endereco: {
         cep: null,
