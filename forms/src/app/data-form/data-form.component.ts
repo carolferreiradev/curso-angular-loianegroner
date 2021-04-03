@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-data-form',
@@ -68,6 +68,56 @@ export class DataFormComponent implements OnInit {
     }
   }
 
-  consultaCEP() { }
+  async consultaCEP() {
+
+    let cep = this.formulario.get('endereco.cep').value
+    //Deixando somente digitos
+    cep = cep.replace(/\D/g, "");
+
+    //Verifica se o CEP tem valor informado
+    if (cep != "") {
+
+      //Expressão regular para validar o CEP
+      const validacep = /^[0-9]{8}$/;
+
+      if (validacep.test(cep)) {
+
+        //Consulta o webservice viacep.com.br
+        await this.http.get(`https://viacep.com.br/ws/${cep}/json`)
+          .subscribe((dados) => this.populaDadosEndereco(dados))
+
+      }
+    } else {
+      alert('CEP informado é inválido')
+    }
+
+  }
+  populaDadosEndereco(dados) {
+
+    this.formulario.patchValue({
+      endereco: {
+        cep: dados.cep,
+        complemento: dados.complemento,
+        rua: dados.logradouro,
+        bairro: dados.bairro,
+        cidade: dados.localidade,
+        estado: dados.uf
+      }
+    })
+
+  }
+
+  resetaDadosEndereco() {
+    this.formulario.patchValue({
+      endereco: {
+        cep: null,
+        complemento: null,
+        rua: null,
+        bairro: null,
+        cidade: null,
+        estado: null
+      }
+    })
+  }
 
 }
