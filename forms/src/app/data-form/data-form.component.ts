@@ -1,3 +1,5 @@
+import { IEstados } from './../shared/models/estados';
+import { DropdownService } from './../shared/services/dropdown.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
@@ -9,14 +11,18 @@ import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angula
 })
 export class DataFormComponent implements OnInit {
 
-  public formulario: FormGroup
+  public formulario: FormGroup;
+
+  public estados: IEstados;
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient
+    private http: HttpClient,
+    private dropDownService: DropdownService
   ) { }
 
   ngOnInit() {
+    this.getEstados()
     // Jeito mais verboso
     // this.formulario = new FormGroup({
     //   nome: new FormControl(null),
@@ -38,19 +44,40 @@ export class DataFormComponent implements OnInit {
     })
   }
 
+  async getEstados(){
+    (await this.dropDownService.getEstadorBr())
+      .subscribe((dados => {this.estados = dados, console.log(dados)} ))
+  }
+
   onSubmit() {
-    console.log(this.formulario)
+    if (this.formulario.valid) {
+      const dados = JSON.stringify(this.formulario.value)
 
-    const dados = JSON.stringify(this.formulario.value)
+      this.http.post('https://httpbin.org/post', dados)
+        .subscribe((dado) => {
+          console.log(dado)
+          // resetar o form em caso de response 200
+          // this.resetar()
 
-    this.http.post('https://httpbin.org/post', dados)
-      .subscribe((dado) => {
-        // console.log(dado)
-        // resetar o form em caso de response 200
-        // this.resetar()
+        },
+          (error) => alert('erro'));
+    } else {
+      this.validateFormFields(this.formulario)
+    }
+  }
 
-      },
-        (error) => alert('erro'));
+  public validateFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach((controlForm) => {
+      const control = formGroup.get(controlForm)
+
+      control.markAsDirty();//modificado
+
+      //verifica se o control é uma instancia de FormGroup
+      if (control instanceof FormGroup) {
+        this.validateFormFields(control) //onde repassará para os aninhamentos a própria função
+      }
+
+    })
   }
 
   resetar() {
@@ -58,7 +85,7 @@ export class DataFormComponent implements OnInit {
   }
 
   verificaValidTouched(campo: string) {
-    return !this.formulario.get(campo).valid && this.formulario.get(campo).touched
+    return !this.formulario.get(campo).valid && (this.formulario.get(campo).touched || this.formulario.get(campo).dirty)
   }
 
   cssError(campo: string) {
@@ -71,6 +98,7 @@ export class DataFormComponent implements OnInit {
   async consultaCEP() {
 
     let cep = this.formulario.get('endereco.cep').value
+
     //Deixando somente digitos
     cep = cep.replace(/\D/g, "");
 
