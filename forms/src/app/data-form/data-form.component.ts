@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-data-form',
@@ -24,8 +24,17 @@ export class DataFormComponent implements OnInit {
     // })
 
     this.formulario = this.formBuilder.group({
-      nome: [null],
-      email: [null]
+      nome: [null, Validators.required],
+      email: [null, Validators.required],
+      endereco: this.formBuilder.group({
+        cep: [null, Validators.required],
+        numero: [null, Validators.required],
+        complemento: [null],
+        rua: [null, Validators.required],
+        bairro: [null, Validators.required],
+        cidade: [null, Validators.required],
+        estado: [null, Validators.required],
+      })
     })
   }
 
@@ -36,9 +45,9 @@ export class DataFormComponent implements OnInit {
 
     this.http.post('https://httpbin.org/post', dados)
       .subscribe((dado) => {
-        console.log(dado)
+        // console.log(dado)
         // resetar o form em caso de response 200
-        this.resetar()
+        // this.resetar()
 
       },
         (error) => alert('erro'));
@@ -47,5 +56,18 @@ export class DataFormComponent implements OnInit {
   resetar() {
     this.formulario.reset()
   }
+
+  verificaValidTouched(campo: string) {
+    return !this.formulario.get(campo).valid && this.formulario.get(campo).touched
+  }
+
+  cssError(campo: string) {
+    return {
+      'has-error': this.verificaValidTouched(campo),
+      'is-invalid': this.verificaValidTouched(campo)
+    }
+  }
+
+  consultaCEP() { }
 
 }

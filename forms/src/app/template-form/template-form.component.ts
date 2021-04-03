@@ -32,7 +32,7 @@ export class TemplateFormComponent implements OnInit {
   cssError(campo) {
     return {
       'has-error': this.verificaValidTouched(campo),
-      'has-feedback': this.verificaValidTouched(campo)
+      'is-invalid': this.verificaValidTouched(campo)
     }
   }
 
