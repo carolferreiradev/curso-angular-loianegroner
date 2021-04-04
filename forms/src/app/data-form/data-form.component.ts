@@ -3,6 +3,7 @@ import { DropdownService } from './../shared/services/dropdown.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
+import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 
 @Component({
   selector: 'app-data-form',
@@ -18,7 +19,8 @@ export class DataFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    private dropDownService: DropdownService
+    private dropDownService: DropdownService,
+    private cepService: ConsultaCepService
   ) { }
 
   ngOnInit() {
@@ -44,9 +46,9 @@ export class DataFormComponent implements OnInit {
     })
   }
 
-  async getEstados(){
+  async getEstados() {
     (await this.dropDownService.getEstadorBr())
-      .subscribe((dados => {this.estados = dados, console.log(dados)} ))
+      .subscribe((dados => { this.estados = dados, console.log(dados) }))
   }
 
   onSubmit() {
@@ -95,31 +97,6 @@ export class DataFormComponent implements OnInit {
     }
   }
 
-  async consultaCEP() {
-
-    let cep = this.formulario.get('endereco.cep').value
-
-    //Deixando somente digitos
-    cep = cep.replace(/\D/g, "");
-
-    //Verifica se o CEP tem valor informado
-    if (cep != "") {
-
-      //Expressão regular para validar o CEP
-      const validacep = /^[0-9]{8}$/;
-
-      if (validacep.test(cep)) {
-
-        //Consulta o webservice viacep.com.br
-        await this.http.get(`https://viacep.com.br/ws/${cep}/json`)
-          .subscribe((dados) => this.populaDadosEndereco(dados))
-
-      }
-    } else {
-      alert('CEP informado é inválido')
-    }
-
-  }
   populaDadosEndereco(dados) {
 
     this.formulario.patchValue({
@@ -146,6 +123,14 @@ export class DataFormComponent implements OnInit {
         estado: null
       }
     })
+  }
+
+  async consultaCEP() {
+    let cep = this.formulario.get('endereco.cep').value
+
+    if (cep != null && cep !== '') {
+      await (await this.cepService.consultaCEP(cep)).subscribe(dados => this.populaDadosEndereco(dados))
+    }
   }
 
 }
