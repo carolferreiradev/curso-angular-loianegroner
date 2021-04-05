@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-data-form',
@@ -14,7 +15,7 @@ export class DataFormComponent implements OnInit {
 
   public formulario: FormGroup;
 
-  public estados: IEstados;
+  public estados: Observable<IEstados>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,8 +48,7 @@ export class DataFormComponent implements OnInit {
   }
 
   async getEstados() {
-    (await this.dropDownService.getEstadorBr())
-      .subscribe((dados => { this.estados = dados, console.log(dados) }))
+    await this.dropDownService.getEstadorBr()
   }
 
   onSubmit() {
