@@ -91,10 +91,17 @@
         <option [ngValue]="cargo" *ngFor="let cargo of cargos">{{cargo.desc}}</option>
       </select>
     </div>
+    <div class="form-group col-md-3">
+      <label for="tecnologias" class="control-label">Tecnologias</label>
+      <select multiple class="form-control" id="tecnologias" formControlName="tecnologias">
+        <option [value]="tecnologia.nome" *ngFor="let tecnologia of tecnologias">{{tecnologia.desc}}</option>
+      </select>
+    </div>
   </div>
   <button type="submit" class="btn btn-primary">Salvar</button>
   <button type="submit" class="btn btn-secondary" (click)="resetaDadosEndereco()">Cancelar</button>
-  <button type="submit" class="btn btn-secondary" (click)="setarCargo()">Cargo</button>
+  <button type="submit" class="btn btn-warning" (click)="setarCargo()">Cargo</button>
+  <button type="submit" class="btn btn-success" (click)="setarTecnologias()">Tecnologias</button>
 
   <app-form-debug [form]="formulario"></app-form-debug>
 

@@ -17,6 +17,7 @@ export class DataFormComponent implements OnInit {
 
   public estados: Observable<IEstados[]>;
   public cargos: any[]
+  public tecnologias: any[]
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,6 +31,7 @@ export class DataFormComponent implements OnInit {
 
     this.cargos = this.dropDownService.getCargos();
 
+    this.tecnologias = this.dropDownService.getTecnologias();
 
     // Jeito mais verboso
     // this.formulario = new FormGroup({
@@ -49,7 +51,8 @@ export class DataFormComponent implements OnInit {
         cidade: [null, Validators.required],
         estado: [null, Validators.required],
       }),
-      cargo: [null]
+      cargo: [null],
+      tecnologias: [null]
     })
   }
 
@@ -148,6 +151,10 @@ export class DataFormComponent implements OnInit {
 
   compararCargos(obj1, obj2) {
     return obj1 && obj2 ? (obj1.nome === obj2.nome && obj1.nivel === obj2.nivel) : obj1 === obj2;
+  }
+
+  setarTecnologias() {
+    this.formulario.get('tecnologias').setValue(['typescript','angular', 'react-native'])
   }
 
 }

@@ -20,4 +20,15 @@ export class DropdownService {
       { nome: 'Dev', nivel: 'Senior', desc: 'Desenvolvedor(a) Senior' },
     ]
   }
+
+  getTecnologias() {
+    return [
+      { nome: 'java', desc: 'Java' },
+      { nome: 'php', desc: 'PHP' },
+      { nome: 'typescript', desc: 'Typescript' },
+      { nome: 'angular', desc: 'Angular' },
+      { nome: 'javascript', desc: 'JavaScript' },
+      { nome: 'react-native', desc: 'React Native' }
+    ]
+  }
 }
