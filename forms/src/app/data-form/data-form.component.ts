@@ -18,6 +18,7 @@ export class DataFormComponent implements OnInit {
   public estados: Observable<IEstados[]>;
   public cargos: any[]
   public tecnologias: any[]
+  public newsletterOp: any[]
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,6 +34,7 @@ export class DataFormComponent implements OnInit {
 
     this.tecnologias = this.dropDownService.getTecnologias();
 
+    this.newsletterOp = this.dropDownService.getNewsletter()
     // Jeito mais verboso
     // this.formulario = new FormGroup({
     //   nome: new FormControl(null),
@@ -52,7 +54,9 @@ export class DataFormComponent implements OnInit {
         estado: [null, Validators.required],
       }),
       cargo: [null],
-      tecnologias: [null]
+      tecnologias: [null],
+      newsletter: ['sim'],
+      termo: [null, Validators.pattern('true')]
     })
   }
 
@@ -102,7 +106,7 @@ export class DataFormComponent implements OnInit {
   cssError(campo: string) {
     return {
       'has-error': this.verificaValidTouched(campo),
-      'is-invalid': this.verificaValidTouched(campo)
+      'is-invalid': this.verificaValidTouched(campo),
     }
   }
 
@@ -154,7 +158,7 @@ export class DataFormComponent implements OnInit {
   }
 
   setarTecnologias() {
-    this.formulario.get('tecnologias').setValue(['typescript','angular', 'react-native'])
+    this.formulario.get('tecnologias').setValue(['typescript', 'angular', 'react-native'])
   }
 
 }

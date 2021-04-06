@@ -31,4 +31,11 @@ export class DropdownService {
       { nome: 'react-native', desc: 'React Native' }
     ]
   }
+
+  getNewsletter(){
+    return [
+      {id: 'sim', desc: 'Sim'},
+      {id: 'nao', desc: 'Não'},
+    ]
+  }
 }

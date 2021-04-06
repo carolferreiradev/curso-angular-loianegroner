@@ -85,19 +85,44 @@
   </div>
 
   <div class="form-group row">
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-4">
       <label for="cargo" class="control-label">Cargo</label>
       <select class="form-control" id="cargo" formControlName="cargo" [compareWith]="compararCargos">
         <option [ngValue]="cargo" *ngFor="let cargo of cargos">{{cargo.desc}}</option>
       </select>
     </div>
-    <div class="form-group col-md-3">
+    <div class="form-group col-md-4">
       <label for="tecnologias" class="control-label">Tecnologias</label>
       <select multiple class="form-control" id="tecnologias" formControlName="tecnologias">
         <option [value]="tecnologia.nome" *ngFor="let tecnologia of tecnologias">{{tecnologia.desc}}</option>
       </select>
     </div>
+    <div class="form-group col-md-4">
+      <label for="newsletter" class="control-label">Assinar Newsletter?</label>
+      <div id="newsletter" class="row">
+        <div class="col-sm-4" *ngFor="let item of newsletterOp">
+          <label class="radio-inline">
+            <input [value]="item.id" type="radio" formControlName="newsletter" id="newsletter">
+            {{item.desc}}
+          </label>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <div class="form-group row">
+    <div class="form-group col-md-4" [ngClass]="cssError('termo')">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id="termos" formControlName="termo">
+        <label class="form-check-label" for="termos">Permitir e aceitar os termos de uso.</label>
+      </div>
+      <app-campo-control-erro [mostrarErro]="verificaValidTouched('termo')" msgErro="Por favor aceite os termos de uso">
+      </app-campo-control-erro>
+
+    </div>
+
+  </div>
+
   <button type="submit" class="btn btn-primary">Salvar</button>
   <button type="submit" class="btn btn-secondary" (click)="resetaDadosEndereco()">Cancelar</button>
   <button type="submit" class="btn btn-warning" (click)="setarCargo()">Cargo</button>
