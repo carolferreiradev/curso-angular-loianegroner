@@ -19,6 +19,7 @@ export class DataFormComponent implements OnInit {
   public cargos: any[]
   public tecnologias: any[]
   public newsletterOp: any[]
+  public frameworks = ['Angular', 'React', 'Vue', 'Elixir']
 
   constructor(
     private formBuilder: FormBuilder,
@@ -56,8 +57,13 @@ export class DataFormComponent implements OnInit {
       cargo: [null],
       tecnologias: [null],
       newsletter: ['sim'],
-      termo: [null, Validators.pattern('true')]
+      termo: [null, Validators.pattern('true')],
+      frameworks: this.buildFrameworks()
     })
+  }
+  buildFrameworks() {
+    const values = this.frameworks.map(v => new FormControl(false))
+    return this.formBuilder.array(values)
   }
 
   getEstados() {
