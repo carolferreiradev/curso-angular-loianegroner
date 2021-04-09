@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { Observable } from 'rxjs';
+import { FormValidations } from '../shared/form-validation';
 
 @Component({
   selector: 'app-data-form',
@@ -63,7 +64,7 @@ export class DataFormComponent implements OnInit {
   }
   buildFrameworks() {
     const values = this.frameworks.map(v => new FormControl(false))
-    return this.formBuilder.array(values)
+    return this.formBuilder.array(values, FormValidations.requiredMinCheckBox(1))
   }
 
   getEstados() {
@@ -72,9 +73,17 @@ export class DataFormComponent implements OnInit {
 
   onSubmit() {
     if (this.formulario.valid) {
-      const dados = JSON.stringify(this.formulario.value)
 
-      this.http.post('https://httpbin.org/post', dados)
+      let valueSubmit = Object.assign({}, this.formulario.value)
+
+      valueSubmit = Object.assign(valueSubmit, {
+
+        frameworks: valueSubmit.frameworks
+          .map((valor, indice) => valor ? this.frameworks[indice] : null)
+          .filter(valor => valor !== null)
+      })
+
+      this.http.post('https://httpbin.org/post', JSON.stringify(valueSubmit))
         .subscribe((dado) => {
           console.log(dado)
           // resetar o form em caso de response 200
