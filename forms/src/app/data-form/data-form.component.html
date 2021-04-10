@@ -10,23 +10,33 @@
 
     <div class="form-group col-sm-12">
       <label for="email">Email</label>
-      <input required type="email" class="form-control" id="email" placeholder="Insira o email" formControlName="email"
+      <input required type="email" class="form-control" id="email" placeholder="Email" formControlName="email"
         [ngClass]="cssError('email')">
       <app-campo-control-erro [mostrarErro]="verificaValidTouched('email')" msgErro="Email inválido.">
+      </app-campo-control-erro>
+    </div>
+
+    <div class="form-group col-sm-12">
+      <label for="confirmaremail">Confirmar email</label>
+      <input required type="confirmaremail" class="form-control" id="confirmaremail" placeholder="Email"
+        formControlName="confirmaremail" [ngClass]="cssError('confirmaremail')">
+      <app-campo-control-erro [mostrarErro]="this.formulario.get('confirmaremail').hasError('equalsTo')"
+        msgErro="Os emails são diferentes">
       </app-campo-control-erro>
     </div>
 
     <div class="endereco" formGroupName="endereco">
       <div class="form-row">
 
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-3" [ngClass]="cssError('endereco.cep')">
           <label for="cep" class="control-label">CEP</label>
-          <input type="text" class="form-control" id="cep" formControlName="cep" [ngClass]="cssError('endereco.cep')"
+          <input type="text" class="form-control" id="cep" formControlName="cep"
             (blur)="consultaCEP()">
 
-          <app-campo-control-erro [mostrarErro]="verificaValidTouched('endereco.cep')" msgErro="CEP é obrigatorio.">
+          <app-campo-control-erro [mostrarErro]="verificaValidTouched('endereco.cep')" msgErro="CEP é obrigatório.">
           </app-campo-control-erro>
-          <app-campo-control-erro [mostrarErro]="this.formulario.get('endereco.cep').hasError('cepInvalido')" msgErro="CEP inválido.">
+          <app-campo-control-erro [mostrarErro]="formulario.get('endereco.cep').hasError('cepInvalido')"
+            msgErro="CEP inválido.">
           </app-campo-control-erro>
 
         </div>
@@ -124,8 +134,8 @@
           </label>
         </div>
         <app-campo-control-erro [mostrarErro]="!formulario.get('frameworks').valid"
-        msgErro="Selecione ao menos uma framework">
-      </app-campo-control-erro>
+          msgErro="Selecione ao menos uma framework">
+        </app-campo-control-erro>
       </div>
     </div>
   </div>
