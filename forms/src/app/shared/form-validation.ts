@@ -24,32 +24,43 @@ export class FormValidations {
 
   static cepValidator(control: FormControl) {
 
-    const cep = control.value;
-    if (cep && cep !== '') {
-      const validacep = /^[0-9]{8}$/;
-      return validacep.test(cep) ? null : { cepInvalido: true };
+    let cep = control.value;
+    if (cep != null) {
+
+      //Deixando somente digitos
+      cep = cep.replace(/\D/g, "");
+
+      if (cep && cep != "") {
+        const validacep = /^[0-9]{8}$/;
+        return validacep.test(cep) ? null : { cepInvalido: true };
+      }
     }
-    return null;
+    return null
   }
 
 
 
   static equalsTo(otherField: string) {
     const validator = (formControl: FormControl) => {
+
       if (otherField == null) {
         throw new Error('O campo não é valido')
       }
+
       if (!formControl.root || !(<FormGroup>formControl.root).controls) {
         return null
       }
+
       const field = (<FormGroup>formControl.root).get(otherField)
 
       if (!field) {
         throw new Error('O campo não é valido')
       }
+
       if (field.value !== formControl.value) {
         return { equalsTo: otherField }
       }
+
       return null
     }
     return validator

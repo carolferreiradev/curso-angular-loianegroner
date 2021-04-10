@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { FormValidations } from './../shared/form-validation';
 import { IEstados } from './../shared/models/estados';
 import { DropdownService } from './../shared/services/dropdown.service';
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { Observable } from 'rxjs';
+import { VerificaEmailService } from './services/verifica-email.service';
 
 @Component({
   selector: 'app-data-form',
@@ -26,10 +28,13 @@ export class DataFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private dropDownService: DropdownService,
-    private cepService: ConsultaCepService
+    private cepService: ConsultaCepService,
+    private verificaEmailService: VerificaEmailService
   ) { }
 
   ngOnInit() {
+
+    // this.verificaEmailService.verificaEmail('email@email.com').subscribe();
     this.getEstados()
 
     this.cargos = this.dropDownService.getCargos();
@@ -45,7 +50,7 @@ export class DataFormComponent implements OnInit {
 
     this.formulario = this.formBuilder.group({
       nome: [null, Validators.required],
-      email: [null, Validators.required],
+      email: [null, [Validators.required, Validators.email], this.validarEmail.bind(this)],
       confirmaremail: [null, FormValidations.equalsTo('email')],
       endereco: this.formBuilder.group({
         cep: [null, [Validators.required, FormValidations.cepValidator]],
@@ -59,7 +64,7 @@ export class DataFormComponent implements OnInit {
       cargo: [null],
       tecnologias: [null],
       newsletter: ['sim'],
-      termo: [null, Validators.pattern('true')],
+      termo: [null, Validators.required],
       frameworks: this.buildFrameworks()
     })
   }
@@ -86,7 +91,7 @@ export class DataFormComponent implements OnInit {
 
       this.http.post('https://httpbin.org/post', JSON.stringify(valueSubmit))
         .subscribe((dado) => {
-          console.log(dado)
+          console.log(`FORMULÁRIO SUBMETIDO: ${dado}`)
           // resetar o form em caso de response 200
           // this.resetar()
 
@@ -162,7 +167,6 @@ export class DataFormComponent implements OnInit {
     }
   }
 
-
   // SETAR CARGO
   setarCargo() {
     const cargo = { nome: 'Dev', nivel: 'Pleno', desc: 'Desenvolvedor(a) Pleno' }
@@ -175,6 +179,11 @@ export class DataFormComponent implements OnInit {
 
   setarTecnologias() {
     this.formulario.get('tecnologias').setValue(['typescript', 'angular', 'react-native'])
+  }
+
+  validarEmail(formControl: FormControl) {
+    return this.verificaEmailService.verificaEmail(formControl.value)
+      .pipe(map(emailExiste => emailExiste ? { emailInvalido: true } : null))
   }
 
 }
