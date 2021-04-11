@@ -4,8 +4,8 @@
       <label for="nome">Nome</label>
       <input required type="text" class="form-control" id="nome" placeholder="Insira o nome" formControlName="nome"
         [ngClass]="cssError('nome')">
-      <app-campo-control-erro [mostrarErro]="verificaValidTouched('nome')" msgErro="Nome é obrigatório.">
-      </app-campo-control-erro>
+      <app-error-message [control]="formulario.get('nome')" label="Nome">
+      </app-error-message>
     </div>
 
     <div class="form-group col-sm-12">
