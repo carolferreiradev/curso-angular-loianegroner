@@ -1,4 +1,4 @@
-import { map } from 'rxjs/operators';
+import { distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 import { FormValidations } from './../shared/form-validation';
 import { IEstados } from './../shared/models/estados';
 import { DropdownService } from './../shared/services/dropdown.service';
@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
-import { Observable } from 'rxjs';
+import { empty, Observable } from 'rxjs';
 import { VerificaEmailService } from './services/verifica-email.service';
 
 @Component({
@@ -67,6 +67,14 @@ export class DataFormComponent implements OnInit {
       termo: [null, Validators.required],
       frameworks: this.buildFrameworks()
     })
+
+    this.formulario.get('endereco.cep').statusChanges
+      .pipe(
+        distinctUntilChanged(),
+        tap(value => console.log('valor CEP:', value)),
+        switchMap(status => status === 'VALID' ? this.cepService.consultaCEP(this.formulario.get('endereco.cep').value) : empty())
+      )
+      .subscribe(dados => dados ? this.populaDadosEndereco(dados) : {})
   }
   buildFrameworks() {
     const values = this.frameworks.map(v => new FormControl(false))
@@ -159,11 +167,11 @@ export class DataFormComponent implements OnInit {
     })
   }
 
-  async consultaCEP() {
+  consultaCEP() {
     let cep = this.formulario.get('endereco.cep').value
 
     if (cep != null && cep !== '') {
-      await (await this.cepService.consultaCEP(cep)).subscribe(dados => this.populaDadosEndereco(dados))
+      this.cepService.consultaCEP(cep).subscribe(dados => this.populaDadosEndereco(dados))
     }
   }
 

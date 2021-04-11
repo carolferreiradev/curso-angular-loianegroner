@@ -9,7 +9,9 @@ export class ConsultaCepService {
 
   constructor(private http: HttpClient) { }
 
-  async consultaCEP(cep: string) {
+  consultaCEP(cep: string) {
+
+    console.log(cep)
     //Deixando somente digitos
     cep = cep.replace(/\D/g, "");
 
@@ -22,7 +24,7 @@ export class ConsultaCepService {
       if (validacep.test(cep)) {
 
         //Consulta o webservice viacep.com.br
-        return await this.http.get(`https://viacep.com.br/ws/${cep}/json`)
+        return this.http.get(`https://viacep.com.br/ws/${cep}/json`)
 
       }
     }
