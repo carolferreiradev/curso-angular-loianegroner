@@ -1,0 +1,16 @@
+
+  <label [attr.for]="id" class="control-label">{{ label }}</label>
+  <input
+    required
+    [type]="type"
+    class="form-control"
+    [id]="id"
+    placeholder="Insira o {{id}}"
+    [ngClass]="classeCss"
+    [readOnly]="!!isReadOnly"
+    [(ngModel)]="value"
+  />
+  <app-error-message
+    [control]="control"
+    [label]="label">
+  </app-error-message>
